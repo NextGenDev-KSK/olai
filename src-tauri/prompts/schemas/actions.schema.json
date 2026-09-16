@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "actions.v1 output",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "citation": {
+      "type": "object",
+      "required": ["spanId", "quote"],
+      "additionalProperties": false,
+      "properties": {
+        "spanId": { "type": "string", "pattern": "^D\\d+-P\\d+-S\\d+$" },
+        "quote": { "type": "string" }
+      }
+    }
+  },
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["group", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "group": { "enum": ["protect", "gather", "respond", "getHelp"] },
+          "text": { "type": "string" },
+          "citations": { "type": "array", "items": { "$ref": "#/definitions/citation" } }
+        }
+      }
+    }
+  }
+}

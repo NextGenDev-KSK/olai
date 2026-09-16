@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "extract_claims.v1 output",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "citation": {
+      "type": "object",
+      "required": ["spanId", "quote"],
+      "additionalProperties": false,
+      "properties": {
+        "spanId": { "type": "string", "pattern": "^D\\d+-P\\d+-S\\d+$" },
+        "quote": { "type": "string" }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string" },
+        "citations": { "type": "array", "items": { "$ref": "#/definitions/citation" } }
+      }
+    }
+  },
+  "properties": {
+    "claims": { "type": "array", "items": { "$ref": "#/definitions/claim" } },
+    "deadlines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "unit", "amount", "claim"],
+        "additionalProperties": false,
+        "properties": {
+          "label": { "type": "string" },
+          "unit": { "enum": ["days", "months"] },
+          "amount": { "type": "integer", "minimum": 0 },
+          "claim": { "$ref": "#/definitions/claim" }
+        }
+      }
+    }
+  }
+}

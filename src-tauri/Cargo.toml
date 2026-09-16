@@ -45,6 +45,7 @@ reqwest = { version = "0.12", default-features = false, features = ["json", "rus
 
 # Async runtime
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "time"] }
+async-trait = "0.1"
 
 # Secret storage in Windows Credential Manager. Optional: only the app build uses it.
 keyring = { version = "3", features = ["windows-native"], optional = true }
@@ -81,7 +82,10 @@ strip = true
 
 [features]
 default = ["app"]
+# `http` enables the real network provider (reqwest) without the Tauri stack,
+# so it can be compile-checked quickly in isolation.
+http = ["dep:reqwest"]
 # `app` pulls in Tauri, networking, and OS secret storage for the real build.
-app = ["dep:tauri", "dep:tauri-plugin-dialog", "dep:reqwest", "dep:keyring"]
+app = ["dep:tauri", "dep:tauri-plugin-dialog", "http", "dep:keyring"]
 # `custom-protocol` is required for production Tauri builds.
 custom-protocol = ["tauri?/custom-protocol"]
