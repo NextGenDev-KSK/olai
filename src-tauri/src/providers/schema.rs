@@ -55,7 +55,11 @@ impl RawClaim {
         Claim {
             id: id.into(),
             text: self.text,
-            citations: self.citations.into_iter().map(RawCitation::into_citation).collect(),
+            citations: self
+                .citations
+                .into_iter()
+                .map(RawCitation::into_citation)
+                .collect(),
             status: VerificationStatus::NotConfirmed,
         }
     }
@@ -236,7 +240,8 @@ mod tests {
         .unwrap();
         assert_eq!(c.severity, Severity::High);
 
-        let a: RawAction = serde_json::from_str(r#"{"group":"getHelp","text":"call aid"}"#).unwrap();
+        let a: RawAction =
+            serde_json::from_str(r#"{"group":"getHelp","text":"call aid"}"#).unwrap();
         assert_eq!(a.group, ActionGroup::GetHelp);
     }
 

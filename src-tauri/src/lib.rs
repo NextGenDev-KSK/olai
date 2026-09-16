@@ -11,6 +11,7 @@
 #![warn(missing_docs)]
 
 pub mod error;
+pub mod fixtures;
 pub mod models;
 pub mod prompts;
 pub mod providers;

@@ -85,7 +85,10 @@ impl LlmProvider for AnthropicProvider {
             })?;
 
         if !response.status().is_success() {
-            return Err(AppError::Provider(format!("HTTP {}", response.status().as_u16())));
+            return Err(AppError::Provider(format!(
+                "HTTP {}",
+                response.status().as_u16()
+            )));
         }
 
         let body: Value = response
@@ -114,8 +117,14 @@ mod tests {
 
     #[test]
     fn model_ids_map_by_tier() {
-        assert_eq!(AnthropicProvider::model_id(ModelTier::Fast), "claude-haiku-4-5");
-        assert_eq!(AnthropicProvider::model_id(ModelTier::Smart), "claude-sonnet-5");
+        assert_eq!(
+            AnthropicProvider::model_id(ModelTier::Fast),
+            "claude-haiku-4-5"
+        );
+        assert_eq!(
+            AnthropicProvider::model_id(ModelTier::Smart),
+            "claude-sonnet-5"
+        );
     }
 
     #[test]

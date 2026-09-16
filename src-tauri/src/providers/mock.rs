@@ -30,11 +30,23 @@ impl MockProvider {
         self
     }
 
+    /// Build from an iterator of `(key, response)` pairs.
+    pub fn from_pairs(pairs: impl IntoIterator<Item = (String, String)>) -> Self {
+        let mut provider = Self::new();
+        for (key, response) in pairs {
+            provider.defaults.insert(key, response);
+        }
+        provider
+    }
+
     /// Queue a scripted response consumed before the default (FIFO). Useful for
     /// returning invalid JSON first, then valid JSON on the repair retry.
     pub fn push_script(&self, key: impl Into<String>, response: impl Into<String>) {
         if let Ok(mut guard) = self.scripted.lock() {
-            guard.entry(key.into()).or_default().push_back(response.into());
+            guard
+                .entry(key.into())
+                .or_default()
+                .push_back(response.into());
         }
     }
 }
@@ -95,6 +107,9 @@ mod tests {
     #[tokio::test]
     async fn missing_key_is_provider_error() {
         let p = MockProvider::new();
-        assert!(matches!(p.complete(&req("nope")).await, Err(AppError::Provider(_))));
+        assert!(matches!(
+            p.complete(&req("nope")).await,
+            Err(AppError::Provider(_))
+        ));
     }
 }

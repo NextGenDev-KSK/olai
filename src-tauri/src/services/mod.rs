@@ -8,3 +8,8 @@ pub mod pii;
 pub mod safety;
 pub mod segmentation;
 pub mod verification;
+
+pub mod actions;
+pub mod analysis;
+pub mod comparison;
+pub mod pipeline;

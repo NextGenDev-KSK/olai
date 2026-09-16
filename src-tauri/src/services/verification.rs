@@ -79,19 +79,13 @@ pub fn verify_quote(span_text: &str, quote: &str) -> (f32, bool) {
     (sim, sim >= SIMILARITY_THRESHOLD)
 }
 
-/// Verify every citation on a claim against the provided span-text lookup and
-/// return a claim with per-citation results and an overall status.
-///
-/// A claim is [`VerificationStatus::Verified`] only when it has at least one
-/// citation and *all* citations are confirmed.
-pub fn verify_claim(mut claim: Claim, span_text: &HashMap<String, String>) -> Claim {
-    if claim.citations.is_empty() {
-        claim.status = VerificationStatus::NotConfirmed;
-        return claim;
-    }
-    let mut all_ok = true;
-    let checked: Vec<Citation> = claim
-        .citations
+/// Verify a list of citations against the span-text lookup, filling in each
+/// citation's `similarity` and `confirmed` fields.
+pub fn verify_citations(
+    citations: Vec<Citation>,
+    span_text: &HashMap<String, String>,
+) -> Vec<Citation> {
+    citations
         .into_iter()
         .map(|mut c| {
             match span_text.get(&c.span_id) {
@@ -105,10 +99,23 @@ pub fn verify_claim(mut claim: Claim, span_text: &HashMap<String, String>) -> Cl
                     c.confirmed = false;
                 }
             }
-            all_ok &= c.confirmed;
             c
         })
-        .collect();
+        .collect()
+}
+
+/// Verify every citation on a claim against the provided span-text lookup and
+/// return a claim with per-citation results and an overall status.
+///
+/// A claim is [`VerificationStatus::Verified`] only when it has at least one
+/// citation and *all* citations are confirmed.
+pub fn verify_claim(mut claim: Claim, span_text: &HashMap<String, String>) -> Claim {
+    if claim.citations.is_empty() {
+        claim.status = VerificationStatus::NotConfirmed;
+        return claim;
+    }
+    let checked = verify_citations(std::mem::take(&mut claim.citations), span_text);
+    let all_ok = checked.iter().all(|c| c.confirmed);
     claim.citations = checked;
     claim.status = if all_ok {
         VerificationStatus::Verified

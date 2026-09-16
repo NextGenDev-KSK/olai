@@ -145,6 +145,17 @@ pub struct QaAnswer {
     pub citations: Vec<super::claim::Citation>,
 }
 
+/// A drafted neutral reply with footnote citations.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
+#[ts(export, export_to = "../../src/lib/bindings/")]
+#[serde(rename_all = "camelCase")]
+pub struct ReplyDraft {
+    /// The draft reply text.
+    pub text: String,
+    /// Footnote citations supporting factual references.
+    pub footnotes: Vec<super::claim::Citation>,
+}
+
 /// The chosen help tier plus the reasons that produced it.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[ts(export, export_to = "../../src/lib/bindings/")]
