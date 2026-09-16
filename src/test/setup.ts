@@ -1,3 +1,10 @@
+/*
+ * jsdom does not implement matchMedia, speechSynthesis, or createObjectURL,
+ * even though the DOM lib types declare them as always present. The guards
+ * below are genuine runtime checks, so the "unnecessary condition" rule is
+ * disabled for this test-support file only.
+ */
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import '@testing-library/jest-dom/vitest';
 import { afterEach, expect, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';

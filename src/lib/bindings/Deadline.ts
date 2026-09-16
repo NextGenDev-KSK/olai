@@ -17,7 +17,7 @@ date: string | null,
 /**
  * Days remaining from "today", if computable (may be negative).
  */
-daysRemaining: bigint | null, 
+daysRemaining: number | null, 
 /**
  * How the date was derived.
  */

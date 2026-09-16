@@ -22,20 +22,36 @@
   --color-info: 30 64 175; /* blue-800 */
 }
 
-:root[data-theme='dark'],
+/* Dark theme tokens: explicit toggle wins; otherwise follow the system unless
+ * the user forced light. Both blocks set the same variables. */
+:root[data-theme='dark'] {
+  --color-surface: 15 23 42; /* slate-900 */
+  --color-surface-raised: 30 41 59; /* slate-800 */
+  --color-ink: 241 245 249; /* slate-100 */
+  --color-ink-muted: 203 213 225; /* slate-300 = 8.9:1 on slate-900 */
+  --color-brand: 96 165 250; /* blue-400 */
+  --color-brand-ink: 15 23 42;
+  --color-border: 71 85 105;
+  --color-focus: 240 171 252;
+  --color-danger: 248 113 113; /* red-400 */
+  --color-warning: 251 191 36; /* amber-400 */
+  --color-success: 74 222 128; /* green-400 */
+  --color-info: 147 197 253;
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --color-surface: 15 23 42; /* slate-900 */
-    --color-surface-raised: 30 41 59; /* slate-800 */
-    --color-ink: 241 245 249; /* slate-100 */
-    --color-ink-muted: 203 213 225; /* slate-300 = 8.9:1 on slate-900 */
-    --color-brand: 96 165 250; /* blue-400 */
+    --color-surface: 15 23 42;
+    --color-surface-raised: 30 41 59;
+    --color-ink: 241 245 249;
+    --color-ink-muted: 203 213 225;
+    --color-brand: 96 165 250;
     --color-brand-ink: 15 23 42;
     --color-border: 71 85 105;
     --color-focus: 240 171 252;
-    --color-danger: 248 113 113; /* red-400 */
-    --color-warning: 251 191 36; /* amber-400 */
-    --color-success: 74 222 128; /* green-400 */
+    --color-danger: 248 113 113;
+    --color-warning: 251 191 36;
+    --color-success: 74 222 128;
     --color-info: 147 197 253;
   }
 }

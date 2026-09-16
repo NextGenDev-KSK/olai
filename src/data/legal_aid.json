@@ -1,0 +1,26 @@
+{
+  "_note": "Legal-aid knowledge pack. The team must fill these in and set verifiedOn (ISO date) after confirming each source. Entries with verifiedOn=null are HIDDEN in release builds. Never invent laws, numbers, or section references.",
+  "entries": [
+    {
+      "name": "TODO: National Legal Services Authority (NALSA)",
+      "region": "India (national)",
+      "phone": "TODO: verify the current helpline number",
+      "sourceUrl": "TODO: https://nalsa.gov.in/ (verify before release)",
+      "verifiedOn": null
+    },
+    {
+      "name": "TODO: State Legal Services Authority (SLSA)",
+      "region": "TODO: the user's state",
+      "phone": "TODO: verify",
+      "sourceUrl": "TODO: verify official SLSA URL",
+      "verifiedOn": null
+    },
+    {
+      "name": "TODO: District Legal Services Authority (DLSA)",
+      "region": "TODO: the user's district",
+      "phone": "TODO: verify",
+      "sourceUrl": "TODO: verify",
+      "verifiedOn": null
+    }
+  ]
+}

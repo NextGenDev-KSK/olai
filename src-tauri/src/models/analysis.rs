@@ -65,6 +65,7 @@ pub struct Deadline {
     /// The computed date in ISO `YYYY-MM-DD`, if the anchor was known.
     pub date: Option<String>,
     /// Days remaining from "today", if computable (may be negative).
+    #[ts(type = "number | null")]
     pub days_remaining: Option<i64>,
     /// How the date was derived.
     pub calc: DeadlineCalc,

@@ -31,14 +31,6 @@ export default defineConfig({
     target: 'chrome105',
     minify: 'esbuild',
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Lazy heavy PDF parsing away from the initial bundle.
-          pdf: ['pdfjs-dist'],
-        },
-      },
-    },
   },
   worker: {
     format: 'es',
