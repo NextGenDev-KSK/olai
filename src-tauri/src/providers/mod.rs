@@ -63,6 +63,12 @@ pub struct CompletionRequest {
 pub trait LlmProvider: Send + Sync {
     /// Complete the request, returning the raw model text (expected JSON).
     async fn complete(&self, req: &CompletionRequest) -> AppResult<String>;
+
+    /// Transcribe (OCR) an image. The default errors; a vision-capable provider
+    /// overrides this.
+    async fn ocr_image(&self, _image_base64: &str, _media_type: &str) -> AppResult<String> {
+        Err(AppError::Provider("image OCR is not supported by this provider".into()))
+    }
 }
 
 /// Extract the JSON object substring (tolerates code fences / surrounding

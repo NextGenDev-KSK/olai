@@ -6,11 +6,13 @@
 mod analysis;
 mod claim;
 mod document;
+mod ipc;
 mod safety;
 mod session;
 
 pub use analysis::*;
 pub use claim::*;
 pub use document::*;
+pub use ipc::*;
 pub use safety::*;
 pub use session::*;

@@ -16,3 +16,12 @@ pub mod models;
 pub mod prompts;
 pub mod providers;
 pub mod services;
+pub mod state;
+
+#[cfg(feature = "app")]
+mod commands;
+#[cfg(feature = "app")]
+mod secrets;
+
+#[cfg(feature = "app")]
+pub use commands::run;

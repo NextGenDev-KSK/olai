@@ -61,18 +61,32 @@ impl AnthropicProvider {
             .map(str::to_string)
             .ok_or_else(|| AppError::Provider("unexpected response shape".into()))
     }
-}
 
-#[async_trait]
-impl LlmProvider for AnthropicProvider {
-    async fn complete(&self, req: &CompletionRequest) -> AppResult<String> {
+    /// Build the vision OCR request body for an image.
+    fn build_ocr_body(image_base64: &str, media_type: &str) -> Value {
+        json!({
+            "model": Self::model_id(ModelTier::Smart),
+            "max_tokens": 4096,
+            "temperature": 0,
+            "messages": [{
+                "role": "user",
+                "content": [
+                    { "type": "image", "source": { "type": "base64", "media_type": media_type, "data": image_base64 } },
+                    { "type": "text", "text": "Transcribe ALL readable text from this document image exactly, preserving line breaks. Output only the transcription." }
+                ]
+            }]
+        })
+    }
+
+    /// POST a request body and return the parsed JSON response.
+    async fn post(&self, body: &Value) -> AppResult<Value> {
         let response = self
             .client
             .post(API_URL)
             .header("x-api-key", &self.api_key)
             .header("anthropic-version", API_VERSION)
             .header("content-type", "application/json")
-            .json(&Self::build_body(req))
+            .json(body)
             .send()
             .await
             .map_err(|e| {
@@ -85,16 +99,24 @@ impl LlmProvider for AnthropicProvider {
             })?;
 
         if !response.status().is_success() {
-            return Err(AppError::Provider(format!(
-                "HTTP {}",
-                response.status().as_u16()
-            )));
+            return Err(AppError::Provider(format!("HTTP {}", response.status().as_u16())));
         }
-
-        let body: Value = response
+        response
             .json()
             .await
-            .map_err(|_| AppError::Provider("invalid JSON response".into()))?;
+            .map_err(|_| AppError::Provider("invalid JSON response".into()))
+    }
+}
+
+#[async_trait]
+impl LlmProvider for AnthropicProvider {
+    async fn complete(&self, req: &CompletionRequest) -> AppResult<String> {
+        let body = self.post(&Self::build_body(req)).await?;
+        Self::parse_response(&body)
+    }
+
+    async fn ocr_image(&self, image_base64: &str, media_type: &str) -> AppResult<String> {
+        let body = self.post(&Self::build_ocr_body(image_base64, media_type)).await?;
         Self::parse_response(&body)
     }
 }
