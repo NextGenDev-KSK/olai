@@ -1,0 +1,31 @@
+// Barrel re-export of ts-rs generated bindings. Generated types come from
+// src-tauri (see `npm run bindings`); this index is stable and hand-kept.
+export type { ActionGroup } from './ActionGroup';
+export type { ActionItem } from './ActionItem';
+export type { Analysis } from './Analysis';
+export type { Citation } from './Citation';
+export type { Claim } from './Claim';
+export type { Conflict } from './Conflict';
+export type { Deadline } from './Deadline';
+export type { DeadlineCalc } from './DeadlineCalc';
+export type { DocRole } from './DocRole';
+export type { Document } from './Document';
+export type { HelpTier } from './HelpTier';
+export type { InjectionFinding } from './InjectionFinding';
+export type { Language } from './Language';
+export type { Page } from './Page';
+export type { PaperCard } from './PaperCard';
+export type { Party } from './Party';
+export type { PiiKind } from './PiiKind';
+export type { PiiSpan } from './PiiSpan';
+export type { QaAnswer } from './QaAnswer';
+export type { QaStatus } from './QaStatus';
+export type { SessionId } from './SessionId';
+export type { Severity } from './Severity';
+export type { SourceKind } from './SourceKind';
+export type { Span } from './Span';
+export type { SpanFlag } from './SpanFlag';
+export type { TierDecision } from './TierDecision';
+export type { TierReason } from './TierReason';
+export type { UserFacingError } from './UserFacingError';
+export type { VerificationStatus } from './VerificationStatus';

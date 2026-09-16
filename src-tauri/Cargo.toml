@@ -1,0 +1,87 @@
+[package]
+name = "olai"
+version = "0.1.0"
+description = "Olai — understand, compare, and navigate legal documents. Not a lawyer."
+authors = ["Olai contributors"]
+license = "MIT"
+repository = ""
+edition = "2021"
+rust-version = "1.77"
+
+# The library holds all logic so it is unit-testable without Tauri's runtime.
+[lib]
+name = "olai_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "olai"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# Tauri is optional so pure logic can be unit-tested without building the whole
+# WebView/wry stack: `cargo test --no-default-features`.
+tauri = { version = "2", optional = true }
+tauri-plugin-dialog = { version = "2", optional = true }
+
+# Serialization + shared TS types
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+ts-rs = { version = "10", features = ["serde-compat", "chrono-impl"] }
+
+# Errors
+thiserror = "1"
+
+# Validation of IPC input
+validator = { version = "0.18", features = ["derive"] }
+
+# Dates & money arithmetic (never done by the model)
+chrono = { version = "0.4", features = ["serde"] }
+
+# HTTP to Anthropic — rustls only, no OpenSSL. Optional: only the real provider needs it.
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"], optional = true }
+
+# Async runtime
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "time"] }
+
+# Secret storage in Windows Credential Manager. Optional: only the app build uses it.
+keyring = { version = "3", features = ["windows-native"], optional = true }
+
+# Text utilities
+regex = "1"
+once_cell = "1"
+unicode-normalization = "0.1"
+sha2 = "0.10"
+
+# Structured logging (never logs document text or secrets)
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "test-util"] }
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "segmentation"
+harness = false
+
+[[bench]]
+name = "verification"
+harness = false
+
+[profile.release]
+# Efficiency: small, fast installer.
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
+
+[features]
+default = ["app"]
+# `app` pulls in Tauri, networking, and OS secret storage for the real build.
+app = ["dep:tauri", "dep:tauri-plugin-dialog", "dep:reqwest", "dep:keyring"]
+# `custom-protocol` is required for production Tauri builds.
+custom-protocol = ["tauri?/custom-protocol"]
