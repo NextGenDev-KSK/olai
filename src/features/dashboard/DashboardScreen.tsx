@@ -37,7 +37,13 @@ export function DashboardScreen() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === '?') {
+      // Ignore the shortcut while the user is typing in a field.
+      const target = e.target as HTMLElement | null;
+      const typing =
+        target?.tagName === 'INPUT' ||
+        target?.tagName === 'TEXTAREA' ||
+        target?.isContentEditable === true;
+      if (e.key === '?' && !typing) {
         e.preventDefault();
         setShortcutsOpen(true);
       }

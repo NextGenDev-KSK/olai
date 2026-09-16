@@ -22,7 +22,7 @@ export function OnboardingScreen() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 p-6">
+    <main id="main" tabIndex={-1} className="mx-auto max-w-2xl space-y-8 p-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">{t('onboarding.title')}</h1>
         <LanguagePicker />
@@ -85,6 +85,6 @@ export function OnboardingScreen() {
           </Button>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

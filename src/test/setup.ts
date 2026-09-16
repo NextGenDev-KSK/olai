@@ -41,11 +41,29 @@ if (!('speechSynthesis' in window)) {
   });
 }
 
+if (!('SpeechSynthesisUtterance' in globalThis)) {
+  class StubUtterance {
+    text: string;
+    lang = '';
+    voice: SpeechSynthesisVoice | null = null;
+    onend: (() => void) | null = null;
+    onerror: (() => void) | null = null;
+    constructor(text: string) {
+      this.text = text;
+    }
+  }
+  globalThis.SpeechSynthesisUtterance =
+    StubUtterance as unknown as typeof SpeechSynthesisUtterance;
+}
+
 // URL.createObjectURL is used by .ics / .txt export; jsdom has no impl.
 if (!URL.createObjectURL) {
   URL.createObjectURL = vi.fn().mockReturnValue('blob:mock');
   URL.revokeObjectURL = vi.fn();
 }
+
+// jsdom does not implement scrollIntoView (used by the compare view).
+Element.prototype.scrollIntoView = vi.fn();
 
 afterEach(() => {
   cleanup();
