@@ -99,7 +99,10 @@ impl AnthropicProvider {
             })?;
 
         if !response.status().is_success() {
-            return Err(AppError::Provider(format!("HTTP {}", response.status().as_u16())));
+            return Err(AppError::Provider(format!(
+                "HTTP {}",
+                response.status().as_u16()
+            )));
         }
         response
             .json()
@@ -116,7 +119,9 @@ impl LlmProvider for AnthropicProvider {
     }
 
     async fn ocr_image(&self, image_base64: &str, media_type: &str) -> AppResult<String> {
-        let body = self.post(&Self::build_ocr_body(image_base64, media_type)).await?;
+        let body = self
+            .post(&Self::build_ocr_body(image_base64, media_type))
+            .await?;
         Self::parse_response(&body)
     }
 }

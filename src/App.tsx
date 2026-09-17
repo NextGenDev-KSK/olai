@@ -23,7 +23,10 @@ export default function App() {
   }, [language]);
 
   return (
-    <div lang={language} className={cn('flex min-h-screen flex-col', easyRead && 'text-lg leading-loose')}>
+    <div
+      lang={language}
+      className={cn('flex min-h-screen flex-col', easyRead && 'text-lg leading-loose')}
+    >
       <SkipLink />
       <div className="flex-1">
         {screen === 'onboarding' ? <OnboardingScreen /> : <DashboardScreen />}

@@ -31,7 +31,9 @@ describe('buildReplyTxt', () => {
   it('masks PII and appends the disclaimer', () => {
     const reply: ReplyDraft = {
       text: 'Contact me at jane@example.com.',
-      footnotes: [{ spanId: 'D1-P1-S1', quote: 'seven days', page: 1, similarity: 1, confirmed: true }],
+      footnotes: [
+        { spanId: 'D1-P1-S1', quote: 'seven days', page: 1, similarity: 1, confirmed: true },
+      ],
     };
     const txt = buildReplyTxt(reply, 'Not a lawyer.');
     expect(txt).toContain('Not a lawyer.');

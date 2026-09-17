@@ -21,7 +21,10 @@ export function ReplyPanel() {
   };
 
   return (
-    <section aria-labelledby="reply-heading" className="fc-border rounded-lg border border-border p-4">
+    <section
+      aria-labelledby="reply-heading"
+      className="fc-border rounded-lg border border-border p-4"
+    >
       <h3 id="reply-heading" className="inline-flex items-center gap-2 font-semibold">
         <PenLine aria-hidden="true" className="h-4 w-4" />
         {t('reply.title')}

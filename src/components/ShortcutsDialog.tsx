@@ -3,7 +3,10 @@ import { X } from 'lucide-react';
 import { Button } from './Button';
 import { useTranslation } from '@/i18n/useTranslation';
 
-const ROWS: { keys: string; labelKey: 'shortcuts.help' | 'shortcuts.tabs' | 'shortcuts.conflicts' | 'shortcuts.close' }[] = [
+const ROWS: {
+  keys: string;
+  labelKey: 'shortcuts.help' | 'shortcuts.tabs' | 'shortcuts.conflicts' | 'shortcuts.close';
+}[] = [
   { keys: '?', labelKey: 'shortcuts.help' },
   { keys: '← →', labelKey: 'shortcuts.tabs' },
   { keys: 'J / K', labelKey: 'shortcuts.conflicts' },
@@ -11,7 +14,13 @@ const ROWS: { keys: string; labelKey: 'shortcuts.help' | 'shortcuts.tabs' | 'sho
 ];
 
 /** A keyboard-shortcuts help dialog, opened with `?`. */
-export function ShortcutsDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+export function ShortcutsDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+}) {
   const { t } = useTranslation();
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

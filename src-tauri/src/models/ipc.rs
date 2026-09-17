@@ -2,7 +2,7 @@
 //! TypeScript client uses the exact same shapes.
 
 use super::analysis::Analysis;
-use super::document::{Document, DocRole};
+use super::document::{DocRole, Document};
 use super::session::SessionId;
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;

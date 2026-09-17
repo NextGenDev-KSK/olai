@@ -9,7 +9,13 @@ import { useStore } from '@/store/useStore';
 
 /** Two synchronized document panes with linked highlights and J/K navigation
  * between numbered conflicts. */
-export function CompareView({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+export function CompareView({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+}) {
   const { t } = useTranslation();
   const analysis = useStore((s) => s.analysis);
   const docs = useStore((s) => s.docs);
@@ -56,7 +62,10 @@ export function CompareView({ open, onOpenChange }: { open: boolean; onOpenChang
 
   useEffect(() => {
     if (!open || !conflict) return;
-    for (const id of [conflict.noticeSide.citations[0]?.spanId, conflict.agreementSide.citations[0]?.spanId]) {
+    for (const id of [
+      conflict.noticeSide.citations[0]?.spanId,
+      conflict.agreementSide.citations[0]?.spanId,
+    ]) {
       if (id) document.getElementById(`span-${id}`)?.scrollIntoView({ block: 'center' });
     }
   }, [open, active, conflict]);
@@ -81,7 +90,11 @@ export function CompareView({ open, onOpenChange }: { open: boolean; onOpenChang
           {conflict && (
             <div className="my-2">
               <div className="flex flex-wrap items-center gap-3">
-                <Button variant="secondary" onClick={() => go(-1)} aria-label={t('shortcuts.conflicts')}>
+                <Button
+                  variant="secondary"
+                  onClick={() => go(-1)}
+                  aria-label={t('shortcuts.conflicts')}
+                >
                   <ChevronLeft aria-hidden="true" className="h-4 w-4" />
                 </Button>
                 <p aria-live="polite" className="flex flex-wrap items-center gap-2 font-medium">
@@ -90,7 +103,11 @@ export function CompareView({ open, onOpenChange }: { open: boolean; onOpenChang
                   </span>
                   <SeverityBadge severity={conflict.severity} />
                 </p>
-                <Button variant="secondary" onClick={() => go(1)} aria-label={t('shortcuts.conflicts')}>
+                <Button
+                  variant="secondary"
+                  onClick={() => go(1)}
+                  aria-label={t('shortcuts.conflicts')}
+                >
                   <ChevronRight aria-hidden="true" className="h-4 w-4" />
                 </Button>
               </div>
@@ -99,7 +116,10 @@ export function CompareView({ open, onOpenChange }: { open: boolean; onOpenChang
           )}
 
           <div className="mt-2 grid flex-1 grid-cols-1 gap-3 overflow-hidden md:grid-cols-2">
-            <section aria-label={t('compare.notice')} className="fc-border overflow-y-auto rounded-md border border-border p-3">
+            <section
+              aria-label={t('compare.notice')}
+              className="fc-border overflow-y-auto rounded-md border border-border p-3"
+            >
               <h3 className="mb-2 font-semibold">{t('compare.notice')}</h3>
               {noticeDoc && (
                 <DocumentText
@@ -109,7 +129,10 @@ export function CompareView({ open, onOpenChange }: { open: boolean; onOpenChang
                 />
               )}
             </section>
-            <section aria-label={t('compare.agreement')} className="fc-border overflow-y-auto rounded-md border border-border p-3">
+            <section
+              aria-label={t('compare.agreement')}
+              className="fc-border overflow-y-auto rounded-md border border-border p-3"
+            >
               <h3 className="mb-2 font-semibold">{t('compare.agreement')}</h3>
               {agreementDoc && (
                 <DocumentText

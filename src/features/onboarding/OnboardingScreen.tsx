@@ -30,7 +30,10 @@ export function OnboardingScreen() {
 
       <p className="text-ink-muted">{t('onboarding.intro')}</p>
 
-      <section aria-labelledby="privacy-heading" className="fc-border rounded-lg border border-border bg-surface-raised p-4">
+      <section
+        aria-labelledby="privacy-heading"
+        className="fc-border rounded-lg border border-border bg-surface-raised p-4"
+      >
         <h2 id="privacy-heading" className="inline-flex items-center gap-2 font-semibold">
           <ShieldCheck aria-hidden="true" className="h-5 w-5 text-success" />
           {t('onboarding.privacyTitle')}

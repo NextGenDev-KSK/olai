@@ -15,7 +15,12 @@ function escapeIcs(text: string): string {
 
 /** Build an RFC 5545 VCALENDAR with an all-day event + 1-day alarm per deadline. */
 export function buildIcs(deadlines: Deadline[]): string {
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Olai//Reminders//EN', 'CALSCALE:GREGORIAN'];
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Olai//Reminders//EN',
+    'CALSCALE:GREGORIAN',
+  ];
   for (const [i, d] of deadlines.entries()) {
     if (!d.date) continue;
     const date = icsDate(d.date);

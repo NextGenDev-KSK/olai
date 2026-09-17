@@ -23,7 +23,7 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 # Tauri is optional so pure logic can be unit-tested without building the whole
 # WebView/wry stack: `cargo test --no-default-features`.
-tauri = { version = "2", optional = true }
+tauri = { version = "2", optional = true , features = [] }
 tauri-plugin-dialog = { version = "2", optional = true }
 
 # Serialization + shared TS types
@@ -33,9 +33,6 @@ ts-rs = { version = "10", features = ["serde-compat", "chrono-impl"] }
 
 # Errors
 thiserror = "1"
-
-# Validation of IPC input
-validator = { version = "0.18", features = ["derive"] }
 
 # Dates & money arithmetic (never done by the model)
 chrono = { version = "0.4", features = ["serde"] }

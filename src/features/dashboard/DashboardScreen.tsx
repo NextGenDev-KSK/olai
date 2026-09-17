@@ -73,7 +73,11 @@ export function DashboardScreen() {
             <BookOpen aria-hidden="true" className="h-4 w-4" />
             {t('action.easyRead')}
           </Button>
-          <Button variant="ghost" onClick={() => setShortcutsOpen(true)} aria-label={t('action.shortcuts')}>
+          <Button
+            variant="ghost"
+            onClick={() => setShortcutsOpen(true)}
+            aria-label={t('action.shortcuts')}
+          >
             <Keyboard aria-hidden="true" className="h-5 w-5" />
           </Button>
           <Button variant="danger" onClick={onDelete}>
@@ -89,7 +93,10 @@ export function DashboardScreen() {
         </div>
 
         <Tabs.Root defaultValue="overview">
-          <Tabs.List aria-label={t('nav.sections')} className="flex flex-wrap gap-1 border-b border-border">
+          <Tabs.List
+            aria-label={t('nav.sections')}
+            className="flex flex-wrap gap-1 border-b border-border"
+          >
             {TABS.map((tab) => (
               <Tabs.Trigger
                 key={tab.value}

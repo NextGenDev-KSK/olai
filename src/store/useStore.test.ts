@@ -36,7 +36,9 @@ describe('useStore', () => {
 
   it('opens and closes the citation drawer', () => {
     act(() => {
-      useStore.getState().openCitation({ spanId: 'D1-P1-S1', quote: 'x', page: 1, similarity: 1, confirmed: true });
+      useStore
+        .getState()
+        .openCitation({ spanId: 'D1-P1-S1', quote: 'x', page: 1, similarity: 1, confirmed: true });
     });
     expect(useStore.getState().activeCitation).not.toBeNull();
     act(() => useStore.getState().closeCitation());

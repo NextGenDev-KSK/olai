@@ -3,7 +3,14 @@ import type { Severity } from '@/lib/bindings';
 import { useTranslation } from '@/i18n/useTranslation';
 import { cn } from '@/lib/cn';
 
-const config: Record<Severity, { icon: typeof Info; className: string; key: 'severity.low' | 'severity.medium' | 'severity.high' }> = {
+const config: Record<
+  Severity,
+  {
+    icon: typeof Info;
+    className: string;
+    key: 'severity.low' | 'severity.medium' | 'severity.high';
+  }
+> = {
   low: { icon: Info, className: 'text-info', key: 'severity.low' },
   medium: { icon: AlertCircle, className: 'text-warning', key: 'severity.medium' },
   high: { icon: AlertTriangle, className: 'text-danger', key: 'severity.high' },

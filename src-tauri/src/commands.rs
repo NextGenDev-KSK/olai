@@ -55,7 +55,9 @@ async fn has_api_key() -> AppResult<bool> {
 async fn set_api_key(key: String) -> AppResult<()> {
     let trimmed = key.trim();
     if trimmed.is_empty() || !trimmed.starts_with("sk-") {
-        return Err(AppError::Validation("that does not look like an API key".into()));
+        return Err(AppError::Validation(
+            "that does not look like an API key".into(),
+        ));
     }
     secrets::set_key(trimmed)
 }
@@ -137,7 +139,10 @@ async fn ingest_one(
             extraction::validate_page_count(pages.len() as u32)?;
             let pages = pages
                 .into_iter()
-                .map(|p| Page { number: p.number, text: p.text })
+                .map(|p| Page {
+                    number: p.number,
+                    text: p.text,
+                })
                 .collect::<Vec<_>>();
             (pages, SourceKind::PdfText)
         }
@@ -229,7 +234,13 @@ async fn load_demo(
     state: State<'_, AppState>,
     scenario: DemoScenarioKind,
 ) -> AppResult<DemoSession> {
-    let Scenario { docs, findings, provider, anchor, language } = match scenario {
+    let Scenario {
+        docs,
+        findings,
+        provider,
+        anchor,
+        language,
+    } = match scenario {
         DemoScenarioKind::Eviction => fixtures::eviction(),
         DemoScenarioKind::Scam => fixtures::scam(),
     };
@@ -249,7 +260,11 @@ async fn load_demo(
     )
     .await?;
     state.set_analysis(&id, analysis.clone())?;
-    Ok(DemoSession { session_id: SessionId(id), docs, analysis })
+    Ok(DemoSession {
+        session_id: SessionId(id),
+        docs,
+        analysis,
+    })
 }
 
 /// Wipe all in-memory session data.

@@ -52,8 +52,7 @@ if (!('SpeechSynthesisUtterance' in globalThis)) {
       this.text = text;
     }
   }
-  globalThis.SpeechSynthesisUtterance =
-    StubUtterance as unknown as typeof SpeechSynthesisUtterance;
+  globalThis.SpeechSynthesisUtterance = StubUtterance as unknown as typeof SpeechSynthesisUtterance;
 }
 
 // URL.createObjectURL is used by .ics / .txt export; jsdom has no impl.

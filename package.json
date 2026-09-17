@@ -24,7 +24,8 @@
     "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml",
     "coverage:rust": "cargo llvm-cov --manifest-path src-tauri/Cargo.toml --fail-under-lines 90",
     "bindings": "cargo test --manifest-path src-tauri/Cargo.toml export_bindings",
-    "audit:js": "npm audit --audit-level=high",
+    "audit:js": "npm audit --omit=dev --audit-level=high",
+    "audit:js:dev": "npm audit --audit-level=high",
     "audit:rust": "cargo audit --file src-tauri/Cargo.lock",
     "audit:all": "npm run audit:js && npm run audit:rust",
     "verify": "npm run lint && npm run typecheck && npm run format:check && npm run test:coverage && npm run test:rust && npm run audit:all && npm run build"

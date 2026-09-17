@@ -9,7 +9,11 @@ const config: Record<
   { icon: typeof CheckCircle2; className: string; key: TranslationKey }
 > = {
   answered: { icon: CheckCircle2, className: 'text-success', key: 'ask.status.answered' },
-  notInDocuments: { icon: HelpCircle, className: 'text-ink-muted', key: 'ask.status.notInDocuments' },
+  notInDocuments: {
+    icon: HelpCircle,
+    className: 'text-ink-muted',
+    key: 'ask.status.notInDocuments',
+  },
   needsLawyer: { icon: Scale, className: 'text-warning', key: 'ask.status.needsLawyer' },
 };
 
@@ -19,7 +23,10 @@ export function StatusPill({ status }: { status: QaStatus }) {
   const { icon: Icon, className, key } = config[status];
   return (
     <span
-      className={cn('fc-border inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-semibold', className)}
+      className={cn(
+        'fc-border inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-semibold',
+        className,
+      )}
     >
       <Icon aria-hidden="true" className="h-3.5 w-3.5" />
       {t(key)}

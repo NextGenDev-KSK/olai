@@ -67,7 +67,9 @@ pub trait LlmProvider: Send + Sync {
     /// Transcribe (OCR) an image. The default errors; a vision-capable provider
     /// overrides this.
     async fn ocr_image(&self, _image_base64: &str, _media_type: &str) -> AppResult<String> {
-        Err(AppError::Provider("image OCR is not supported by this provider".into()))
+        Err(AppError::Provider(
+            "image OCR is not supported by this provider".into(),
+        ))
     }
 }
 

@@ -30,7 +30,10 @@ export function DeadlineCountdown({ deadline }: { deadline: Deadline }) {
         id={`deadline-${deadline.label}`}
         className="inline-flex items-center gap-2 font-semibold"
       >
-        <AlarmClock aria-hidden="true" className={cn('h-4 w-4', urgent ? 'text-danger' : 'text-info')} />
+        <AlarmClock
+          aria-hidden="true"
+          className={cn('h-4 w-4', urgent ? 'text-danger' : 'text-info')}
+        />
         {t('deadline.title')}: {deadline.label}
       </h3>
       <p className="mt-1 text-2xl font-bold">

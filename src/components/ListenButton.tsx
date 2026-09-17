@@ -25,7 +25,11 @@ export function ListenButton({ text, className }: { text: string; className?: st
 
   return (
     <Button variant="ghost" onClick={toggle} aria-pressed={speaking} className={className}>
-      {speaking ? <Square aria-hidden="true" className="h-4 w-4" /> : <Volume2 aria-hidden="true" className="h-4 w-4" />}
+      {speaking ? (
+        <Square aria-hidden="true" className="h-4 w-4" />
+      ) : (
+        <Volume2 aria-hidden="true" className="h-4 w-4" />
+      )}
       {speaking ? t('action.stopListening') : t('action.listen')}
     </Button>
   );

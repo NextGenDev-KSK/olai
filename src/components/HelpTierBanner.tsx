@@ -35,7 +35,10 @@ export function HelpTierBanner({ decision }: { decision: TierDecision }) {
       )}
     >
       <h2 id="tier-heading" className="inline-flex items-center gap-2 text-lg font-bold">
-        <Icon aria-hidden="true" className={cn('h-5 w-5', isLawyer ? 'text-danger' : 'text-info')} />
+        <Icon
+          aria-hidden="true"
+          className={cn('h-5 w-5', isLawyer ? 'text-danger' : 'text-info')}
+        />
         {t(tierKey[decision.tier])}
       </h2>
       {isLawyer && <p className="mt-1 text-sm">{t('tier.needsLawyer.detail')}</p>}

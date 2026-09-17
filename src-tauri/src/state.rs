@@ -68,11 +68,15 @@ impl AppState {
     }
 
     fn write(&self) -> AppResult<std::sync::RwLockWriteGuard<'_, HashMap<String, Session>>> {
-        self.sessions.write().map_err(|_| AppError::Internal("state lock".into()))
+        self.sessions
+            .write()
+            .map_err(|_| AppError::Internal("state lock".into()))
     }
 
     fn read(&self) -> AppResult<std::sync::RwLockReadGuard<'_, HashMap<String, Session>>> {
-        self.sessions.read().map_err(|_| AppError::Internal("state lock".into()))
+        self.sessions
+            .read()
+            .map_err(|_| AppError::Internal("state lock".into()))
     }
 
     fn session_missing(id: &str) -> AppError {
@@ -81,7 +85,8 @@ impl AppState {
 
     /// Create a new session with the given id and language.
     pub fn create_session(&self, id: &str, language: Language, demo: bool) -> AppResult<()> {
-        self.write()?.insert(id.to_string(), Session::new(language, demo));
+        self.write()?
+            .insert(id.to_string(), Session::new(language, demo));
         Ok(())
     }
 
@@ -143,7 +148,9 @@ impl AppState {
     pub fn get_analysis(&self, id: &str) -> AppResult<Analysis> {
         let guard = self.read()?;
         let s = guard.get(id).ok_or_else(|| Self::session_missing(id))?;
-        s.analysis.clone().ok_or_else(|| AppError::NotFound("analysis".into()))
+        s.analysis
+            .clone()
+            .ok_or_else(|| AppError::NotFound("analysis".into()))
     }
 
     /// Remove a single session.
@@ -174,7 +181,9 @@ mod tests {
         let state = AppState::new();
         state.create_session("s1", Language::Ta, true).unwrap();
         state.set_anchor("s1", Some("2026-09-10".into())).unwrap();
-        state.set_provider("s1", Arc::new(MockProvider::new())).unwrap();
+        state
+            .set_provider("s1", Arc::new(MockProvider::new()))
+            .unwrap();
 
         let snap = state.snapshot("s1").unwrap();
         assert_eq!(snap.language, Language::Ta);
@@ -190,6 +199,9 @@ mod tests {
     fn missing_session_is_not_found() {
         let state = AppState::new();
         assert!(matches!(state.snapshot("nope"), Err(AppError::NotFound(_))));
-        assert!(matches!(state.get_analysis("nope"), Err(AppError::NotFound(_))));
+        assert!(matches!(
+            state.get_analysis("nope"),
+            Err(AppError::NotFound(_))
+        ));
     }
 }
