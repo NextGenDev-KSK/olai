@@ -15,6 +15,12 @@ understand, compare, and navigate legal documents.”_
 It works in **English**, **Tamil (தமிழ்)**, and **Hindi (हिन्दी)** with text‑to‑speech,
 and ships a fully **offline demo mode** so it can be evaluated with no API key.
 
+> **🌐 Live browser demo:** <https://nextgendev-ksk.github.io/olai/> — the **frontend in
+> demo mode** (mock backend, bundled synthetic documents). It shows the full UI and both
+> demo scenarios, but real document analysis, the Anthropic calls, and secret storage only
+> run in the **Windows desktop app** (they require the Rust backend). Download the desktop
+> installer from the repo’s CI artifacts or build it with `npm run tauri build`.
+
 ---
 
 ## How Olai addresses the challenge
